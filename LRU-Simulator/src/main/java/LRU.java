@@ -45,7 +45,7 @@ public class LRU {
     public boolean get(int item) {
         int index;
         if ((index = isContained(item)) != -1) {
-            addWhenHit((item));
+            addWhenHit(cacheAccumulator[index]);
             cacheAccumulator[index] = 0;
             return true;
         } else {
