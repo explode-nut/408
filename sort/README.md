@@ -1,4 +1,10 @@
 # 排序算法
+## 运行
+- 编译:make all
+- 测试:make test
+- 检测内存泄漏(需安装Valgrind):make valgrind
+- 清理:make clean或make clean-all
+
 ## 约定
 ### 返回值
 - 失败： -1或NULL

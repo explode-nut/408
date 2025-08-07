@@ -41,6 +41,14 @@ test: $(TESTS)
 		./$$test; \
 	done
 
+# Run all tests under valgrind for memory leak detection
+valgrind: $(TESTS)
+	@echo "Running all tests under Valgrind for memory leak detection..."
+	@for test in $(TESTS); do \
+		echo "------ Running $$test under Valgrind ------"; \
+		valgrind --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all ./$$test; \
+	done
+
 # Clean build files
 clean:
 	rm -f $(OBJ) $(TESTS)
@@ -50,4 +58,4 @@ clean-all: clean
 	rm -f *.o *~ *.out
 
 # Show what will be built
-.PHONY: all test clean clean-all
+.PHONY: all test clean clean-all valgrind
