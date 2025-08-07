@@ -5,20 +5,49 @@ CC = gcc
 # Compiler flags
 CFLAGS = -Wall -Wextra -std=c99
 
-# 编译所有文件
-quick_sort: 
-	$(CC) $(CFLAGS) ./quick_sort/quick_sort.c ./utils.c ./quick_sort/quick_sort_test.c -o quick_sort_test
+# Source files in current directory (excluding test files)
+SRC := $(wildcard *.c)
+# Exclude test files (files ending with _test.c)
+SRC := $(filter-out %_test.c, $(SRC))
+# Generate object files
+OBJ := $(SRC:.c=.o)
 
-# 运行测试
-quick_sort_test: quick_sort
-	./quick_sort_test
+# Test source files
+TEST_SRC := $(wildcard *_test.c)
+# Test executables (remove .c extension)
+TESTS := $(TEST_SRC:.c=)
 
-# 默认目标
-all: quick_sort
+# Default target
+all: $(TESTS)
 
-# 测试目标
-test: quick_sort_test
+# Generic rule to build each test
+%: %.c $(SRC)
+	$(CC) $(CFLAGS) $^ -o $@
 
-# 清理编译文件
+# Or, more efficient: use .o files
+# Uncomment the following for separate compilation
+#
+# %: %.o $(OBJ)
+#	$(CC) $(CFLAGS) $^ -o $@
+#
+# %.o: %.c
+#	$(CC) $(CFLAGS) -c $< -o $@
+
+# Run all tests
+test: $(TESTS)
+	@echo "Running all tests..."
+	@for test in $(TESTS); do \
+		echo "------ Running $$test ------"; \
+		./$$test; \
+	done
+
+# Clean build files
 clean:
-	rm -f quick_sort_test
+	rm -f $(OBJ) $(TESTS)
+
+# Clean all (including object files and tests)
+clean-all: clean
+	rm -f *.o *~ *.out
+
+# Show what will be built
+.PHONY: all test clean clean-all

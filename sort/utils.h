@@ -1,4 +1,11 @@
-int** read_data(char* file_path);
-int read_arr_num(char* file_path);
-void free_data(int** data, int n);
-void print_arr(char* file_path, int** data, int n);
+typedef struct {
+    int length; // 该序列的长度
+    int data[20]; // 该序列的数据，最大20个
+} sort_arr;
+
+// file_path: 文件路径
+// n: 待排序序列数量
+sort_arr* read_sort_data(char* file_path, int* n);
+// 释放read_sort_data分配的内存
+void free_sort_data(sort_arr* i);
+void print_sort_arr(sort_arr* arrs, int n);
