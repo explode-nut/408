@@ -1,6 +1,7 @@
+#define MAX_LENGTH 15
 typedef struct {
     int length; // 该序列的长度
-    int data[20]; // 该序列的数据，最大20个
+    int data[MAX_LENGTH]; // 该序列的数据，最大20个
 } sort_arr;
 
 // file_path: 文件路径

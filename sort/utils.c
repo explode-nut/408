@@ -29,6 +29,12 @@ sort_arr* read_sort_data(char* file_path, int* n) {
             free(res);
             return NULL;
         }
+        if (res[i].length > MAX_LENGTH) {
+            printf("测试数据有误，第%d个序列长度不合法。\n", i + 1);
+            fclose(file);
+            free(res);
+            return NULL;
+        }
     }
 
     for (int i = 0; i < *n; i++) {
