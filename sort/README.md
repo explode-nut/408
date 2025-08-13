@@ -3,6 +3,7 @@
 ## 已实现算法
 - quick sort
 - merge sort
+- insrt sort
 
 ## 运行
 - $编译$ :make all
